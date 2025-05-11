@@ -1,6 +1,7 @@
 package internet.pages;
 
 import internet.core.BasePage;
+import internet.pages.alertsJavaScript.AlertsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,8 +15,17 @@ public class HomePage extends BasePage {
     @FindBy(css = "a[href='/login']")
     WebElement loginLink;
 
-    public HomePage getFormAuthentication() {
+    public LoginPage getFormAuthentication() {
         click(loginLink);
-        return this;
+        return new LoginPage(driver, wait);
+    }
+
+    @FindBy(css = "a[href='/javascript_alerts']")
+    WebElement alertsJavaScript;
+
+    public AlertsPage getAlertsJavaScript() {
+        click(alertsJavaScript, 0, 100);
+        return new AlertsPage(driver, wait);
+
     }
 }
