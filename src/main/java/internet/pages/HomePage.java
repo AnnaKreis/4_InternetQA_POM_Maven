@@ -3,6 +3,7 @@ package internet.pages;
 import internet.core.BasePage;
 import internet.pages.alertsJavaScript.AlertsPage;
 import internet.pages.frames.NestedFramesPage;
+import internet.pages.windows.BrowserWindowsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,5 +38,13 @@ public class HomePage extends BasePage {
         click(frames, 0, 100);
         return new NestedFramesPage(driver, wait);
 
+    }
+
+    @FindBy(css ="a[href='/windows']")
+    WebElement windows;
+
+    public BrowserWindowsPage getMultipleWindows() {
+click(windows, 0, 150);
+        return new BrowserWindowsPage(driver, wait);
     }
 }

@@ -3,6 +3,7 @@ package internet.tests.frames;
 import internet.core.TestBase;
 import internet.pages.HomePage;
 import internet.pages.frames.NestedFramesPage;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -44,8 +45,12 @@ public class NestedFramesTests extends TestBase {
         new NestedFramesPage(app.driver, app.wait)
                 .switchToBottomFrame()
                 .verifyFrameText("BOTTOM")
-                .switchToDefaultContent();
-//                .verifyFrameCount(4);
+                .switchToDefaultContent();;
+    }
+
+    @Test
+    public void totalFramesCountTest() {
+        new NestedFramesPage(app.driver, app.wait).verifyTotalFramesCount(5);
     }
 }
 

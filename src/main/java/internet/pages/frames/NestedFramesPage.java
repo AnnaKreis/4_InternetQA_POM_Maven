@@ -4,8 +4,11 @@ import internet.core.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import java.util.List;
 
 
 public class NestedFramesPage extends BasePage {
@@ -57,7 +60,7 @@ public class NestedFramesPage extends BasePage {
     WebElement bodyFrame;
 
     public NestedFramesPage verifyFrameText(String text) {
-        Assert.assertTrue(shouldHaveText(bodyFrame, text, 10));
+        Assert.assertTrue(shouldHaveText(bodyFrame, text, 5));
         return this;
     }
 
@@ -66,10 +69,29 @@ public class NestedFramesPage extends BasePage {
         return this;
     }
 
-//    public NestedFramesPage verifyFrameCount(int expectedCount) {
-//        Integer actualCount = Integer.parseInt(js.executeScript("return window.frames.length").toString());
-//        Assert.assertEquals(actualCount, expectedCount);
-//        return this;
-//    }
+    @FindBy(tagName = "frame")
+    List<WebElement> frames;
 
+    public int countAllFrames() {
+        return countFramesRecursive(0);
+    }
+
+    private int countFramesRecursive(int level) {
+        int count = frames.size();
+        for (int i = 0; i < frames.size(); i++) {
+            driver.switchTo().frame(frames.get(i));
+            PageFactory.initElements(driver, this);
+            count += countFramesRecursive(level + 1);
+            driver.switchTo().parentFrame();
+        }
+        return count;
+    }
+
+    public NestedFramesPage verifyTotalFramesCount(int count) {
+        NestedFramesPage nestedFramesPage = new NestedFramesPage(driver, wait);
+        int totalFrames = nestedFramesPage.countAllFrames();
+        System.out.println("Total frames: " + totalFrames);
+        Assert.assertEquals(totalFrames, count);
+        return this;
+    }
 }
