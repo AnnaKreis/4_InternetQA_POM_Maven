@@ -12,7 +12,7 @@ import java.time.Duration;
 public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
-    public JavascriptExecutor js;
+    public static JavascriptExecutor js;
 
     public BasePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -40,6 +40,11 @@ public class BasePage {
     public void waitFormAlert(int seconds) {
         new WebDriverWait(driver, Duration.ofSeconds(seconds))
                 .until(ExpectedConditions.alertIsPresent());
+    }
+
+    public boolean shouldHaveText(WebElement element, String text, int time) {
+        return new WebDriverWait(driver, Duration.ofSeconds(time))
+                .until(ExpectedConditions.textToBePresentInElement(element, text));
     }
 
 }

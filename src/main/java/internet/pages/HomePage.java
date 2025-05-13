@@ -2,6 +2,7 @@ package internet.pages;
 
 import internet.core.BasePage;
 import internet.pages.alertsJavaScript.AlertsPage;
+import internet.pages.frames.NestedFramesPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,6 +27,15 @@ public class HomePage extends BasePage {
     public AlertsPage getAlertsJavaScript() {
         click(alertsJavaScript, 0, 100);
         return new AlertsPage(driver, wait);
+
+    }
+
+    @FindBy(css = "a[href='/nested_frames']")
+    WebElement frames;
+
+    public NestedFramesPage getNestedFrames() {
+        click(frames, 0, 100);
+        return new NestedFramesPage(driver, wait);
 
     }
 }
