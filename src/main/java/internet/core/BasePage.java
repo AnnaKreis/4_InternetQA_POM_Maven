@@ -20,13 +20,19 @@ public class BasePage {
         this.js = (JavascriptExecutor) driver;
         PageFactory.initElements(driver, this);
     }
+
     public void click(WebElement element) {
         element.click();
     }
 
     public void click(WebElement element, int x, int y) {
-        js.executeScript("window.scrollBy("+x+","+y+")");
+        js.executeScript("window.scrollBy(" + x + "," + y + ")");
         click(element);
+    }
+
+    public void moveWithJS(int x, int y) {
+        js.executeScript("window.scrollBy(" + x + "," + y + ")");
+
     }
 
     public void type(WebElement element, String text) {
@@ -45,6 +51,14 @@ public class BasePage {
     public boolean shouldHaveText(WebElement element, String text, int time) {
         return new WebDriverWait(driver, Duration.ofSeconds(time))
                 .until(ExpectedConditions.textToBePresentInElement(element, text));
+    }
+
+    public void pause(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

@@ -1,12 +1,16 @@
 package internet.pages;
 
 import internet.core.BasePage;
-import internet.pages.alertsJavaScript.AlertsPage;
+import internet.pages.alerts.AlertsPage;
+import internet.pages.dropdown.DropdownListPage;
 import internet.pages.frames.NestedFramesPage;
+import internet.pages.hovers.HoversPage;
+import internet.pages.slider.SliderPage;
 import internet.pages.windows.BrowserWindowsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Sleeper;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage extends BasePage {
@@ -40,11 +44,35 @@ public class HomePage extends BasePage {
 
     }
 
-    @FindBy(css ="a[href='/windows']")
+    @FindBy(css = "a[href='/windows']")
     WebElement windows;
 
     public BrowserWindowsPage getMultipleWindows() {
-click(windows, 0, 150);
+        click(windows, 0, 150);
         return new BrowserWindowsPage(driver, wait);
+    }
+
+    @FindBy(css = "a[href='/dropdown']")
+    WebElement dropdown;
+
+    public DropdownListPage getDropdownList() {
+        click(dropdown, 0, 150);
+        return new DropdownListPage(driver, wait);
+    }
+
+    @FindBy(css = "a[href='/horizontal_slider']")
+    WebElement slider;
+
+    public SliderPage getSlider() {
+        click(slider, 0, 150);
+        return new SliderPage(driver, wait);
+    }
+
+    @FindBy(css = "a[href='/hovers']")
+    WebElement hovers;
+
+    public HoversPage getHovers() {
+        click(hovers, 0, 150);
+        return new HoversPage(driver, wait);
     }
 }

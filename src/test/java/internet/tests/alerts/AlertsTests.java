@@ -2,7 +2,7 @@ package internet.tests.alerts;
 
 import internet.core.TestBase;
 import internet.pages.HomePage;
-import internet.pages.alertsJavaScript.AlertsPage;
+import internet.pages.alerts.AlertsPage;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
